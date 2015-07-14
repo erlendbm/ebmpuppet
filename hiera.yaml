@@ -1,0 +1,12 @@
+---
+:hierarchy:
+  - "node/%{::fqdn}"
+  - "virtual/%{::virtual}"
+  - "osfamily/%{osfamily}"
+  - common/modules/%{calling_module}"
+  - common/common
+:backends:
+  - yaml
+:yaml:
+  :datadir: /etc/puppet/hieradata
+

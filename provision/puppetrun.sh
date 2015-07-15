@@ -3,22 +3,22 @@
 set_certname()
 {
   # Set default certname
-  certname="vagrant-base-dev.himlar.local"
+  certname="$(hostname -f)"
   # Use certname from puppet.conf if it is present
   grep -q certname /etc/puppet/puppet.conf && certname="$(puppet config print certname)"
   # Override with certname from env var if present
-  certname="${HIMLAR_CERTNAME:-$certname}"
+  certname="${EBMPUPPET_CERTNAME:-$certname}"
 }
 
 bootstraprun()
 {
   # Run bootstrap if bootstrap file is present
   # If the run exits with 0, remove the marker file
-  if [[ -f "/opt/himlar/bootstrap" ]]; then
+  if [[ -f "/local/ebmpuppet/bootstrap" ]]; then
     FACTER_RUNMODE=bootstrap puppetrun
     if [[ $? -eq 0 ]]; then
       echo "puppetrun.sh: $certname bootstrap finished"
-      rm -fv /opt/himlar/bootstrap
+      rm -fv /local/ebmpuppet/bootstrap
     fi
   fi
 }
@@ -30,7 +30,7 @@ puppetrun()
     --disable_warnings=deprecations \
     --trusted_node_data \
     --no-stringify_facts \
-    --basemodulepath /opt/himlar/modules:/etc/puppet/modules \
+    --basemodulepath /local/ebmpuppet/modules:/etc/puppet/modules \
     ${p_args[*]} \
     /etc/puppet/manifests/site.pp
 }
@@ -38,7 +38,7 @@ puppetrun()
 # Source command line options as env vars
 while [[ $# -gt 0 ]]; do
   case $1 in
-    HIMLAR_*=*|FACTER_*=*)
+    EBMPUPPET_*=*|FACTER_*=*)
       export $1
       shift
       ;;

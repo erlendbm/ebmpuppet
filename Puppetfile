@@ -9,8 +9,14 @@ github = 'https://github.com/'
 mod 'profile', :ref => 'norcams-0.5.9',          :git => github + 'norcams/puppeels'
 
 #
+# profile::webserver::apache
+#
+mod 'puppetlabs/apache', '1.2.0'                 # forge
+
+#
 # profile::application::foreman
 #
+mod 'theforeman/concat_native', '1.3.1'          # forge
 mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
 
 #

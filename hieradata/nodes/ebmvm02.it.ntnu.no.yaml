@@ -1,2 +1,6 @@
 ---
+classes:
+ - puppet
+
 puppet::server:                        true
+puppet::server_foreman:                false

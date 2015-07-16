@@ -1,8 +1,9 @@
 ---
-puppet::runinterval:  900
-puppet::runmode:      'cron'
-puppet::puppetmaster: "ebmvm02.it.ntnu.no"
-puppet::show_diff:    true
+puppet::runinterval:    900
+puppet::runmode:        'cron'
+puppet::puppetmaster:   "ebmvm02.it.ntnu.no"
+puppet::show_diff:      true
+puppet::server_reports: 'puppetdb'
 
 puppet::server_directory_environments: false
 puppet::server_environments:           []

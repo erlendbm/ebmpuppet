@@ -23,10 +23,14 @@ mod 'puppetlabs/apache', '1.2.0'                 # forge
 #
 mod 'theforeman/concat_native', '1.3.1'          # forge
 mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
-mod 'puppetlabs/puppetdb',                       # forge
 
 #
 # Common libs
 #
 mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
+mod 'puppetlabs/puppetdb',                       # forge
+mod 'puppetlabs/firewall',                       # Forge
+mod 'puppetlabs/inifile',                        # Forge
+mod 'puppetlabs/postgresql',                     # Forge
+

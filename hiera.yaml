@@ -1,6 +1,6 @@
 ---
 :hierarchy:
-  - "node/%{::fqdn}"
+  - "nodes/%{::fqdn}"
   - "virtual/%{::virtual}"
   - "osfamily/%{osfamily}"
   - common/modules/%{calling_module}"

@@ -23,6 +23,7 @@ mod 'puppetlabs/apache', '1.2.0'                 # forge
 #
 mod 'theforeman/concat_native', '1.3.1'          # forge
 mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
+mod 'puppetlabs/puppetdb'                        # forge
 
 #
 # Common libs

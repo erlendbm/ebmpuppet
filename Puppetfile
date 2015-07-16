@@ -29,8 +29,9 @@ mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/pu
 #
 mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
-mod 'puppetlabs/puppetdb'                        # forge
+mod 'puppetlabs/apt'                             # Forge
 mod 'puppetlabs/firewall'                        # Forge
 mod 'puppetlabs/inifile'                         # Forge
 mod 'puppetlabs/postgresql'                      # Forge
+mod 'puppetlabs/puppetdb'                        # forge
 

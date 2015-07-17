@@ -3,8 +3,9 @@
   - "nodes/%{::fqdn}"
   - "virtual/%{::virtual}"
   - "osfamily/%{osfamily}"
-  - common/modules/%{calling_module}"
-  - common/common
+  - "common/roles/%{role}"
+  - "common/modules/%{calling_module}"
+  - "common/common"
 :backends:
   - yaml
 :yaml:

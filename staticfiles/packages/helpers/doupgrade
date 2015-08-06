@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# Script som kjører oppdateringer.
+# Erlend Midttun, <erlendbm@itea.ntnu.no>
+# 2007-12-20
+#
+
+if grep -q 'Ubuntu' /etc/issue; then
+    DISTRO="ubuntu"
+elif grep -q 'Red Hat Enterprise Linux Server' /etc/redhat-release; then
+    DISTRO="redhat"
+elif grep -q 'CentOS Linux' /etc/redhat-release; then
+    DISTRO="redhat"
+else
+    echo "Not supported distro found"
+    exit 1
+fi
+
+# Default-verdier.  Vert kun brukt dersom det ikkje er sett i defaults-fila.
+TODAY=$(date +%Y-%m-%d-%H-%M)
+LOGDIR="/root/upgradelog/${TODAY}"
+REBOOTNEEDED="no"
+REBOOTWAIT="5"
+REBOOTMSG="Reboot due to system upgrade"
+PATH="/sbin:/usr/sbin:$PATH"
+
+if [ -f /etc/default/doupgrade ]; then
+    . /etc/default/doupgrade
+fi
+
+echo "Starting $0"
+
+mkdir -p ${LOGDIR}
+cd ${LOGDIR} || exit 2
+
+# ting som skal kjøres før vi oppgraderer:
+if [ -d /etc/doupgrade/preupgrade.d ]; then
+    run-parts /etc/doupgrade/preupgrade.d
+fi
+
+# Fjerne gamle kjerner
+if [ -x /local/admin/bin/kernel-clean.sh ]; then
+    /local/admin/bin/kernel-clean.sh --force
+fi
+
+if [ "$DISTRO" == "ubuntu" ]; then
+    aptitude update && aptitude -y full-upgrade && aptitude clean
+elif [ "$DISTRO" == "redhat" ]; then
+    yum clean all > /dev/null
+    if yum check-update | egrep -q '^kernel-|^glibc |^openssl '; then
+        REBOOTNEEDED="yes"
+    fi
+    yum -y update > package_upgrade.log 2>&1
+    if egrep -qw "kernel|glibc|openssl" package_upgrade.log; then
+        REBOOTNEEDED="yes"
+    fi
+fi
+
+if [ -e /var/run/reboot-required ]; then
+    REBOOTNEEDED="yes"
+fi
+
+# Fjerne gamle kjerner
+if [ -x /local/admin/bin/kernel-clean.sh ]; then
+    /local/admin/bin/kernel-clean.sh --force
+fi
+
+# ting som skal kjøres etter oppgradering
+if [ -d /etc/doupgrade/postupgrade.d ]; then
+    run-parts /etc/doupgrade/postupgrade.d
+fi
+
+if [ "$REBOOTNEEDED" == "yes" ]; then
+    # ting som skal kjøres før vi rebooter
+    if [ -d /etc/doupgrade/prereboot.d ]; then
+        run-parts /etc/doupgrade/prereboot.d
+    fi
+    if [ $(w | egrep -v '^root ' | wc -l) -gt 2 ]; then
+        echo -n "The time is now "
+        date
+        echo "Reboot in ${REBOOTWAIT} minutes"
+        shutdown -r +${REBOOTWAIT} "${REBOOTMSG}"
+    else
+        echo "Fast reboot due to no users logged in"
+        shutdown -r +1 "Fast shutdown due to no users logged in"
+    fi
+else
+    echo "No reboot needed"
+fi
+

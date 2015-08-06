@@ -10,8 +10,7 @@ puppet::server_environments:           []
 puppet::server_external_nodes:         ''
 
 puppet::additional_settings:
-  'basemodulepath'   : '/etc/puppet/modules:/opt/himlar/modules'
-  'certname'         : "%{::verified_certname}"
+  'basemodulepath'   : '/etc/puppet/modules:/local/ebmpuppet/modules'
   'trusted_node_data': true
   'disable_warnings' : 'deprecations'
   'stringify_facts'  : 'false'

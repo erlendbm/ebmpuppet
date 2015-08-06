@@ -1,8 +1,41 @@
 ---
 classes:
  - ntp
+ - staticfiles
 ntp::servers:
  - ntp.ntnu.no
  - ntp2.ntnu.no
  - ntp.uninett.no
+
+staticfiles::staticfiles:
+  'local':
+    path:    '/local'
+    owner:   root
+    group:   root
+    mode:    0755
+    ensure:  directory
+  'local.admin':
+    path:    '/local/admin'
+    owner:   root
+    group:   root
+    mode:    0755
+    ensure:  directory
+  'local.admin.bin':
+    path:    '/local/admin/bin'
+    owner:   root
+    group:   root
+    mode:    0755
+    ensure:  directory
+  'doupgrade':
+    path:    '/local/admin/bin/doupgrade'
+    owner:   root
+    group:   root
+    mode:    0755
+    source:  'puppet:///staticfiles/local/admin/bin/doupgrade'
+  'root.dot.bashrc.ebm':
+    path:    '/root/.bashrc.ebm'
+    owner:   root
+    group:   root
+    mode:    0644
+    source:  'puppet:///staticfiles/root/dot.bashrc.ebm'
 

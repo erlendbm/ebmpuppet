@@ -25,6 +25,11 @@ mod 'theforeman/concat_native', '1.3.1'          # forge
 mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
 
 #
+# Static files
+#
+mod 'erlendbm/staticfiles',                      :git => github + 'erlendbm/puppet-staticfiles.git'
+
+#
 # Common libs
 #
 mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'

@@ -81,6 +81,7 @@ gem install r10k --no-ri --no-rdoc
 rm -rf /etc/puppet/manifests
 ln -sfT /local/ebmpuppet/manifests /etc/puppet/manifests
 ln -sfT /local/ebmpuppet/hieradata /etc/puppet/hieradata
+ln -sfT /local/ebmpuppet/staticfiles /etc/puppet/staticfiles
 ln -sfT /local/ebmpuppet/hiera.yaml /etc/puppet/hiera.yaml
 ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
 

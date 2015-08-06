@@ -31,11 +31,17 @@ staticfiles::staticfiles:
     owner:   root
     group:   root
     mode:    0755
-    source:  'puppet:///staticfiles/local/admin/bin/doupgrade'
+    source:  'puppet:///staticfiles/packages/helpers/doupgrade'
+  'kernel-clean':
+    path:    '/local/admin/bin/kernel-clean.sh'
+    owner:   root
+    group:   root
+    mode:    0755
+    source:  'puppet:///staticfiles/packages/helpers/kernel-clean.sh'
   'root.dot.bashrc.ebm':
     path:    '/root/.bashrc.ebm'
     owner:   root
     group:   root
     mode:    0644
-    source:  'puppet:///staticfiles/root/dot.bashrc.ebm'
+    source:  'puppet:///staticfiles/userconf/users/root/dot.bashrc.ebm'
 

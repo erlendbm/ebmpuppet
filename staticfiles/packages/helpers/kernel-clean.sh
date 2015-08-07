@@ -19,12 +19,11 @@ fi
 if grep -q "Ubuntu" /etc/issue; then
     dpkg -S vmlinuz | sed -e 's/:.*$//' | sort -n > $TMPFILE
     DELCMD="aptitude purge -y"
-elif grep -q "Red Hat" /etc/issue; then
+elif grep -q "Red Hat" /etc/redhat-release; then
     rpm -q kernel | sort -n > $TMPFILE
     DELCMD="rpm -e"
-elif grep -q "SUSE" /etc/issue; then
-    # Both kernel-default, kernel-smp and kernel-bigsmp may appear here
-    rpm -qa | egrep -c 'kernel-smp|kernel-bigsmp|kernel-default' | sort -n > $TMPFILE
+elif grep -q "CentOS Linux" /etc/redhat-release; then
+    rpm -q kernel | sort -n > $TMPFILE
     DELCMD="rpm -e"
 else
     echo "No supported operating system found"
